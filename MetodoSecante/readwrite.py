@@ -1,5 +1,8 @@
 import os
-func = input('Enter the function: ')
+func = input('Escreva a funcao: ')
+QTD = input('Quantas iteracoes? ')
+X0 = input('X0: ')
+X1 = input('X1: ')
 arquivo = open('secante.py', 'w')
 arquivo.write('import matplotlib.pyplot as plt\ncordx = []\ncordy = []\nfor x in range(-100, 100):\n\ty = ' + func + '\n\tcordx.append(x)\n\tcordy.append(y)\n\tprint(y)\nplt.plot(cordx,cordy)\nplt.show()')
 arquivo.close()
