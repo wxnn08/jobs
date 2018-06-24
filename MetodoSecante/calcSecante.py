@@ -2,7 +2,9 @@ def function(x):
 	return x**2
 
 def secant():
+	#  x0 , x1
 	x=[0.5, 1.0]
+	#  fx0 , fx1
 	f=[0.625, -3]
 	for i in range(2,8):
 		xValue = x[i-1]-((f[i-1]*(x[i-1]-x[i-2]))/(f[i-1]-f[i-2]))
