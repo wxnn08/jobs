@@ -6,16 +6,16 @@ def secant(x, f, it):
 		f.append(fValue)
 	
 	for i in range(0,it):
-		print("x = {}| f = {}".format(x[i],f[i]))
+		print("{} - x = {}| f = {}".format(i, x[i],f[i]))
 
 def main():
 	x=[0.5, 1.0]
-	f=[0.625, -3]
-	it = 15
+	f=[0.625, -3.0]
+	it = 8
 	secant(x, f, it)
 
 def function(x):
-	return x**2
+	return (x**3)-(9*x)+5
 
 if __name__ == "__main__":
     main()
