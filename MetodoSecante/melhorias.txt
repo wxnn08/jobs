@@ -1,0 +1,3 @@
+1 - Corrigir o erro da divisao por zero em todas as funcoes
+2 - Permitir a inserção de funcoes trigonometricas e exponenciais
+3 - Corrigir a entrada para ser mais boazinha com o utilizador, ex: substituir ** por ^
