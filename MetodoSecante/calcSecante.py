@@ -3,10 +3,15 @@ import matplotlib.pyplot as plt
 def secant(x, f, it, TAM):	
 	xAxis = []
 	yAxis = []
+	raiz = 0
 	for i in range(int(round(x[0]))-TAM, int(round(x[0]))+TAM):
-		xAxis.append(i)
-		yAxis.append(fx(i))
-	plt.plot(xAxis, yAxis, )
+		yValue = fx(i)
+		if yValue!="?":
+			xAxis.append(i)
+			yAxis.append(yValue)
+
+	funcao = "x^2"
+	plt.plot(xAxis, yAxis, label=funcao)
 
 	try:
 		for i in range(2,it):
@@ -27,7 +32,6 @@ def secant(x, f, it, TAM):
 	if raiz!="?":
 		raiz = str(x[len(x)-1])
 
-	funcao = "x^2"
 	plt.title("{}, raiz = ".format(funcao) + raiz)
 	plt.ylabel("f(x)")
 	plt.xlabel("x")
@@ -45,22 +49,25 @@ def fSec(i, x0, x1, f0, f1, TAM):
 			xAxis.append(x)
 			yAxis.append(y)
 		lbl = str(i)+" iteração"
-		plt.plot(xAxis, yAxis, label = lbl)
+		plt.plot(xAxis, yAxis,"--", label = lbl)
 
 	except ZeroDivisionError:
-		print("ERRO #01: Divisao por zero")
+		print("ERRO #03: Divisao por zero")
 
 def fx(x):
 	try:
-		return 1/x
+		return (x**2)-9
 	except ZeroDivisionError:
-		print("ERRO #01: Divisao por zero")
+		print("ERRO #04: Divisao por zero")
+		return "?"
+
+
 
 def main():
-	x=[0, 1]
+	x=[1000, 700]
 	f=[fx(x[0]), fx(x[1])]
-	it = 7
-	TAM = 100
+	it = 10
+	TAM = 1000
 	secant(x, f, it+1, TAM)
 
 
