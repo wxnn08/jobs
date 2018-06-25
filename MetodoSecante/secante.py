@@ -24,7 +24,7 @@ def secant(x, f, it, TAM):
 		fSec(i, x[i-1], x[i], f[i-1], f[i], TAM)
 	
 	plt.grid(True)
-	funcao = " x**2 " 
+	funcao = " 1+x+(2.718281**x) " 
 	plt.title("{}, raiz = ".format(funcao) + str(x[len(x)-1]))
 	plt.ylabel("f(x)")
 	plt.xlabel("x")
@@ -43,12 +43,12 @@ def fSec(i, x0, x1, f0, f1, TAM):
 	plt.plot(xAxis, yAxis, label = lbl)
 
 def fx(x):
-	return x**2 
+	return 1+x+(2.718281**x) 
 
 def main():
-	x=[-5, 10]
-	f=[fx(-5), fx(10)]
-	it = 7
+	x=[-2.00, -1.00]
+	f=[fx(-2.00), fx(-1.00)]
+	it = 10
 	TAM = 100
 	secant(x, f, it+1, TAM)
 
