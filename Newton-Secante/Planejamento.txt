@@ -1,0 +1,23 @@
+#1 Leitura da função
+	a) Nice Calculator 
+	https://code.sololearn.com/WN0dgrcEv5FY/#css
+
+	b) Simple Scientific calculator using HTML, JavaScript and css
+	https://markuprecipes.wordpress.com/2013/09/29/simple-scientific-calculator-using-html-javascript-and-css/
+
+#2 Cálculo das raízes da função
+	a) Método das Secantes
+	https://pt.wikipedia.org/wiki/M%C3%A9todo_das_secantes
+	https://www.math.tecnico.ulisboa.pt/~calves/courses/eqn/capii213.html
+	
+	b) Método das Secantes no MATLAB
+	https://www.aedb.br/seget/arquivos/artigos06/472_Artigo01%20Nara%20Vetter,%20Guilherme%20Paiva,%20Rafael%20Marques.pdf
+	
+	c) Método das Secantes no SCILAB
+	http://elanodl.blogspot.com/p/prof_74.html
+
+#3 Plotagem do gráfico com os pontos calculados
+	a) Chart.js
+	https://www.chartjs.org/
+	http://www.chartjs.org/samples/latest/
+	http://www.mundojs.com.br/2018/01/18/iniciando-com-chart-js/

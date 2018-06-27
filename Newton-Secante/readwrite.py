@@ -1,0 +1,10 @@
+import os
+func = input('Escreva a funcao: ')
+X0 = input('X0: ')
+X1 = input('X1: ')
+it = input('Iteracoes: ')
+arquivo = open('secante.py', 'w')
+arquivo.write("colocar o arquivo aqui")
+arquivo.close()
+cwd = os.path.join(os.getcwd(), "secante.py")
+os.system('{} {}'.format('python', cwd))
