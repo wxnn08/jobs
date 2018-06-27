@@ -1,4 +1,0 @@
-1 - Implementar a bisecção com 7 iteracoes antes da secante
-2 - Corrigir o erro da divisao por zero em todas as funcoes
-3 - Permitir a inserção de funcoes trigonometricas e exponenciais
-4 - Corrigir a entrada para ser mais boazinha com o utilizador, ex: substituir ** por ^
