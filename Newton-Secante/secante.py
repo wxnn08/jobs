@@ -28,7 +28,7 @@ def secant(x, f, it, eps, plotRange):
 			xAxis.append(i)
 			yAxis.append(yValue)
 
-	funcao = "x^2"
+	funcao = " x**2-6 "
 	plt.plot(xAxis, yAxis, label=funcao)
 
 	try:
@@ -87,26 +87,17 @@ def fx(x):
 		
 
 def main():
-	""" Configuracoes passadas pelo usuario """
 	x=[0, 100000]
 	itSMax = 100
 	itB = 7
 	plotRange = 1000
-	eps = 0.0001
+	eps = 0.00001
 	
-	""" Verifica se existe uma raiz no intervalo fornecido """
 	if fx(x[0])*fx(x[1])<0:
-		""" Realiza itB iterações pelo método da Bisecção no intervalo dado """
 		x = biseccao(x, itB)
 
-		""" Calcula fx para os valores obtidos """
 		f=[fx(x[0]), fx(x[1])]
 
-		""" Calcula pelo método das secantes. 
-
-		itSMax = Máximo de iterações realizadas
-		eps = Aproximação 
-		plotRange = Tamanho da plotagem do gráfico """
 		secant(x, f, itSMax+1, eps, plotRange)	
 
 	else:
