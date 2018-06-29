@@ -1,6 +1,9 @@
 import matplotlib.pyplot as plt
+import tkinter
 import math
 
+arquivo = open("input.txt", "r")
+func = arquivo.read()
 
 """ Funcao para plotar o grafico com maior precisao. Em um 'for' soh e possivel utilizar int """
 def decimal_range(start, stop, increment):
@@ -109,7 +112,7 @@ def plotSecante(i, x0, x1, f0, f1, plotLeft, plotRight):
 
 def fx(x):
 	try:
-		return math.sin(x)
+		return eval(func)
 
 	except ZeroDivisionError:
 		print("ERRO #04: Divisao por zero")
@@ -120,50 +123,52 @@ def fx(x):
 
 
 def main():
-	""" Configuracoes passadas pelo usuario """
-	x=[1, 4]
-	itSMax = 100
-	itB = 7
-	plotRange = 100
-	eps = 0.000001
-	funcaoMascara = "tmpFuncao"
-	
-	""" Configuracoes da plotagem """
-	plt.ion()
-	plt.ylabel("f(x)")
-	plt.xlabel("x")
-	plt.grid(True)
-	plt.title("{}, raiz = ?".format(funcaoMascara))
+    """ Configuracoes passadas pelo usuario """
+    x=[1, 4]
+    itSMax = 100
+    itB = 7
+    plotRange = 100
+    eps = 0.000001
+    
+    arquivo2 = open("title.txt", "r")
+    funcaoMascara = arquivo2.read()
+    
+    """ Configuracoes da plotagem """
+    plt.ion()
+    plt.ylabel("f(x)")
+    plt.xlabel("x")
+    plt.grid(True)
+    plt.title("{}, raiz = ?".format(funcaoMascara))
 
 
-	""" Verifica se existe uma raiz no intervalo fornecido """
-	if fx(x[0])*fx(x[1])<0:
+    """ Verifica se existe uma raiz no intervalo fornecido """
+    if fx(x[0])*fx(x[1])<0:
 
-		""" Pensando... """
-		print("Processando...")
-		print(" ------------------------------------------ ")
+            """ Pensando... """
+            print("Processando...")
+            print(" ------------------------------------------ ")
 
-		""" Realiza itB iterações pelo método da Bisecção no intervalo dado """
-		x = biseccao(x, itB)
+            """ Realiza itB iterações pelo método da Bisecção no intervalo dado """
+            x = biseccao(x, itB)
 
-		""" Calcula fx para os valores obtidos """
-		f=[fx(x[0]), fx(x[1])]
+            """ Calcula fx para os valores obtidos """
+            f=[fx(x[0]), fx(x[1])]
 
-		""" Calcula pelo método das secantes. 
+            """ Calcula pelo método das secantes. 
 
-		itSMax = Máximo de iterações realizadas
-		eps = epslon: aproximação da secante
-		plotRange = Tamanho da plotagem do gráfico """
+            itSMax = Máximo de iterações realizadas
+            eps = epslon: aproximação da secante
+            plotRange = Tamanho da plotagem do gráfico """
 
-		secante(x, f, itSMax+1, eps, plotRange, funcaoMascara)	
-		print(" ------------------------------------------ \n\n")
+            secante(x, f, itSMax+1, eps, plotRange, funcaoMascara)	
+            print(" ------------------------------------------ \n\n")
 
-		""" Desliga modo iterativo para manter o gráfico gerado na tela, caso contrário ele desaparece muito rápido """
-		plt.ioff()
-		plt.show()
+            """ Desliga modo iterativo para manter o gráfico gerado na tela, caso contrário ele desaparece muito rápido """
+            plt.ioff()
+            plt.show()
 
-	else:
-		print("Existem mais de uma ou nenhuma raiz no intervalo dado")
+    else:
+            print("Existem mais de uma ou nenhuma raiz no intervalo dado")
 
 if __name__ == "__main__":
     main()
