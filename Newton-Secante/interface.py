@@ -15,7 +15,6 @@ class Application(Frame):
         self.task = ""
         self.UserIn = StringVar()
         self.Real = StringVar()
-        self.needClose = False
         self.grid()
         self.create_widgets()
 
@@ -204,10 +203,12 @@ class Application(Frame):
             arquivo2.close()
 
             # TO DO executar o calc com o os
-
-            self.answer = eval(self.data)
-            self.displayText(self.answer)
-            self.task = self.answer
+            cwd = os.path.join(os.getcwd(), "calc.py")
+            os.system('{} {}' .format('python', cwd))
+            self.ClearDisplay()
+            #self.answer = eval(self.data)
+            #self.displayText(self.answer)
+            #self.task = self.answer
 
         except SyntaxError as e:
             self.displayText("Invalid Syntax!")
