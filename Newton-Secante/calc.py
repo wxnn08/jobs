@@ -15,25 +15,20 @@ def biseccao (x, it):
 		m = int((x[0]+x[1])/2)
 	return x
 
-def secant(x, f, it, eps, plotRange):	
+def secante(x, f, it, eps, plotRange):	
+
 	print("# Secante")
-	xAxis = []
-	yAxis = []
-	root = 0
+
 	plotLeft = int(x[0]-plotRange)
 	plotRight = int(x[1]+plotRange)
-	for i in range(plotLeft, plotRight):
-		yValue = fx(i)
-		if yValue!="?":
-			xAxis.append(i)
-			yAxis.append(yValue)
-
 	funcao = "x^2"
-	plt.plot(xAxis, yAxis, label=funcao)
+	root = 0
 
 	try:
+		plotFuncaoPrincipal(x, funcao, plotLeft, plotRight)
+
 		cont = 2 
-		while cont<it and abs(fx(len(x)-1)):
+		while cont<it and abs(fx(len(x)-1))>eps and f[cont-1]!=f[cont-2]:
 			xValue = x[cont-1]-((f[cont-1]*(x[cont-1]-x[cont-2]))/(f[cont-1]-f[cont-2]))
 			x.append(xValue)
 			fValue = fx(xValue)
@@ -42,12 +37,14 @@ def secant(x, f, it, eps, plotRange):
 
 	except ZeroDivisionError:
 		print("ERRO #01: Divisao por zero")
+
 	except TypeError:
 		print("ERRO #02: TypeError")
 		root = "?"
 
 	for i in range (2, len(f)):
-		fSec(i, x[i-1], x[i], f[i-1], f[i], plotLeft, plotRight)
+		if x[i]!=x[i-1]:
+			plotSecante(i, x[i-1], x[i], f[i-1], f[i], plotLeft, plotRight)
 
 	if root!="?":
 		root = str(x[len(x)-1])
@@ -59,24 +56,38 @@ def secant(x, f, it, eps, plotRange):
 	plt.grid(True)
 	plt.show()
 
-def fSec(i, x0, x1, f0, f1, plotLeft, plotRight):
+def plotFuncaoPrincipal(x, nome, plotLeft, plotRight):
+	xAxis = []
+	yAxis = []
+	for i in range(plotLeft, plotRight):
+		yValue = fx(i)
+		if yValue!="?":
+			xAxis.append(i)
+			yAxis.append(yValue)
+
+	plt.plot(xAxis, yAxis,"r", label=nome)
+
+def plotSecante(i, x0, x1, f0, f1, plotLeft, plotRight):
 	try:
-		m = (f1-f0)/(x1-x0)
+		print("---- x[{}]: {}".format(i, x1))
 		xAxis = [x1]
 		yAxis = [f1]
+		m = (f1-f0)/(x1-x0)
+
 		for x in range(plotLeft, plotRight):
 			y = m*(x-xAxis[0])+yAxis[0]
 			xAxis.append(x)
 			yAxis.append(y)
+
 		lbl = str(i-1)+" iteração"
-		plt.plot(xAxis, yAxis,"--", label = lbl)
+		plt.plot(xAxis, yAxis, "--", linewidth=0.8, label = lbl)
 
 	except ZeroDivisionError:
 		print("ERRO #03: Divisao por zero")
 
 def fx(x):
 	try:
-		return x**2-6
+		return ((x**2)/10)+x-1000
 
 	except ZeroDivisionError:
 		print("ERRO #04: Divisao por zero")
@@ -88,14 +99,15 @@ def fx(x):
 
 def main():
 	""" Configuracoes passadas pelo usuario """
-	x=[0, 100000]
+	x=[0, 10000]
 	itSMax = 100
 	itB = 7
-	plotRange = 1000
-	eps = 0.0001
+	plotRange = 100
+	eps = 0.01
 	
 	""" Verifica se existe uma raiz no intervalo fornecido """
 	if fx(x[0])*fx(x[1])<0:
+		print("Processando...")
 		""" Realiza itB iterações pelo método da Bisecção no intervalo dado """
 		x = biseccao(x, itB)
 
@@ -107,7 +119,7 @@ def main():
 		itSMax = Máximo de iterações realizadas
 		eps = Aproximação 
 		plotRange = Tamanho da plotagem do gráfico """
-		secant(x, f, itSMax+1, eps, plotRange)	
+		secante(x, f, itSMax+1, eps, plotRange)	
 
 	else:
 		print("Nao existem raizes no intervalo dado")
