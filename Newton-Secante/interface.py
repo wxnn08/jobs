@@ -133,11 +133,11 @@ class Application(Frame):
         command = lambda : self.buttonClick("math.sin(", "sen("), font = ("Calibri", 15, "bold"))
         self.Senobutton.grid(row = 2, column = 2, sticky = N+W+E+S)
 
-        # Pi button
-        self.Pibutton = Button(self, bg = "#A9A9A9", bd = 0, 
-        text = "\u03C0",  padx = 34, pady = 24,
-        command = lambda : self.buttonClick("math.acos(-1)", "\u03C0"), font = ("Sans-serif", 15, "bold"))
-        self.Pibutton.grid(row = 2, column = 3, sticky = N+W+E+S)
+        # Dot button
+        self.Dotbutton = Button(self, bg = "#A9A9A9", bd = 0, 
+        text = ".",  padx = 34, pady = 24,
+        command = lambda : self.buttonClick(".", "."), font = ("Sans-serif", 15, "bold"))
+        self.Dotbutton.grid(row = 2, column = 3, sticky = N+W+E+S)
 
         # OpenPar button
         self.OpenParbutton = Button(self, bg = "#A9A9A9", bd = 0, 
