@@ -116,21 +116,21 @@ class Application(Frame):
 
         # Tan button
         self.Tanbutton = Button(self, bg = "#A9A9A9", bd = 0, 
-        text = "Tan",  padx = 23, pady = 22,
-        command = lambda : self.buttonClick("math.tan(", "Tan("), font = ("Helvetica", 15, "bold"))
+        text = "tan",  padx = 25, pady = 22,
+        command = lambda : self.buttonClick("math.tan(", "tan("), font = ("Helvetica", 15, "bold"))
         self.Tanbutton.grid(row = 2, column = 0, sticky = W)
 
         # Cos button
         self.Cosbutton = Button(self, bg = "#A9A9A9", bd = 0, 
-        text = "Cos",  padx = 24, pady = 22,
-        command = lambda : self.buttonClick("math.cos(", "Cos("), font = ("Helvetica", 15, "bold"))
+        text = "cos",  padx = 25, pady = 22,
+        command = lambda : self.buttonClick("math.cos(", "cos("), font = ("Helvetica", 15, "bold"))
         self.Cosbutton.grid(row = 2, column = 1, sticky = W)
 
 
         # Seno button
         self.Senobutton = Button(self, bg = "#A9A9A9", bd = 0, 
-        text = "Sen",  padx = 23, pady = 22,
-        command = lambda : self.buttonClick("math.sin(", "Sen("), font = ("Helvetica", 15, "bold"))
+        text = "sen",  padx = 24, pady = 22,
+        command = lambda : self.buttonClick("math.sin(", "sen("), font = ("Helvetica", 15, "bold"))
         self.Senobutton.grid(row = 2, column = 2, sticky = W)
 
         # Pi button
