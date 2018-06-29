@@ -1,12 +1,17 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import math
-import time
+
+
+
 
 def decimal_range(start, stop, increment):
     while start < stop: # and not math.isclose(start, stop): Py>3.5
         yield start
         start += increment
+
+
+
 
 def biseccao (x, it):
 	print("# Bisecção")
@@ -23,13 +28,15 @@ def biseccao (x, it):
 		m = int((x[0]+x[1])/2)
 	return x
 
-def secante(x, f, it, eps, plotRange):	
 
+
+
+def secante(x, f, it, eps, plotRange):	
 	print("# Secante")
 
 	plotLeft = int(x[0]-plotRange)
 	plotRight = int(x[1]+plotRange)
-	funcao = "x^2"
+	funcao = "tmpFuncao"
 	raiz = 0
 
 	try:
@@ -57,7 +64,10 @@ def secante(x, f, it, eps, plotRange):
 		raiz = str(x[len(x)-1])
 
 	plt.title("{}, raiz = ".format(funcao) + raiz)
-	
+
+
+
+
 def plotFuncaoPrincipal(x, nome, plotLeft, plotRight):
 	xAxis = []
 	yAxis = []
@@ -69,7 +79,14 @@ def plotFuncaoPrincipal(x, nome, plotLeft, plotRight):
 
 	plt.plot(xAxis, yAxis,"r", label=nome)
 	plt.draw()
-	plt.waitforbuttonpress()
+
+	continua = False
+	while continua!=True:
+		if plt.waitforbuttonpress()==True:
+			continua = True
+
+
+
 
 def plotSecante(i, x0, x1, f0, f1, plotLeft, plotRight):
 	try:
@@ -78,13 +95,13 @@ def plotSecante(i, x0, x1, f0, f1, plotLeft, plotRight):
 
 		xAxis = []
 		yAxis = []
-		#for x in range(plotLeft, plotRight):
 		for x in decimal_range(x0-x1*0.5, x1+x1*0.5, 0.01):
 			y = m*(x-x1)+f1
 			xAxis.append(x)
 			yAxis.append(y)
 		
 		plt.plot(xAxis, yAxis, linewidth=0.8)
+		plt.legend()
 		plt.draw()
 		plt.waitforbuttonpress()
 
@@ -96,13 +113,14 @@ def plotSecante(i, x0, x1, f0, f1, plotLeft, plotRight):
 		plt.text(x1, 0, "x"+str(i))
 		plt.plot(xAxis, yAxis, "k--", linewidth=0.8)
 
-		plt.legend()
 		plt.draw()
 		plt.waitforbuttonpress()
 
-
 	except ZeroDivisionError:
 		print("ERRO #03: Divisao por zero")
+
+
+
 
 def fx(x):
 	try:
@@ -114,21 +132,28 @@ def fx(x):
 
 	except TypeError:
 		print("ERRO #05: TypeError")
-		
-def main():
-	plt.ion()
-	plt.show()
-	plt.ylabel("f(x)")
-	plt.xlabel("x")
-	plt.grid(True)
 
+
+
+
+def main():
 	""" Configuracoes passadas pelo usuario """
 	x=[1, 4]
 	itSMax = 100
 	itB = 7
 	plotRange = 5 
 	eps = 0.001
+	funcao = "tmpFuncao"
 	
+	""" Configuracoes da plotagem """
+	plt.ion()
+	plt.show()
+	plt.ylabel("f(x)")
+	plt.xlabel("x")
+	plt.grid(True)
+	plt.title("{}, raiz = ?".format(funcao))
+
+
 	""" Verifica se existe uma raiz no intervalo fornecido """
 	if fx(x[0])*fx(x[1])<0:
 		print("Processando...")
@@ -143,6 +168,7 @@ def main():
 		itSMax = Máximo de iterações realizadas
 		eps = Aproximação pela secante
 		plotRange = Tamanho da plotagem do gráfico """
+
 		secante(x, f, itSMax+1, eps, plotRange)	
 		plt.waitforbuttonpress()
 
