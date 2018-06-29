@@ -94,7 +94,7 @@ class Application(Frame):
         self.Addbutton = Button(self, bg = "#A9A9A9", bd = 0, 
         text = "+",  padx = 36, pady = 25,
         command = lambda : self.buttonClick("+", "+"), font = ("Calibri", 20, "bold"))
-        self.Addbutton.grid(row = 3, column = 3, sticky = N+W+E+S)
+        self.Addbutton.grid(row = 5, column = 3, sticky = N+W+E+S)
 
         # Subtraction button
         self.Subbutton = Button(self, bg = "#A9A9A9", bd = 0, 
@@ -106,13 +106,13 @@ class Application(Frame):
         self.Multbutton = Button(self, bg = "#A9A9A9", bd = 0, 
         text = "*",  padx = 38, pady = 25,
         command = lambda : self.buttonClick("*", "*"), font = ("Calibri", 20, "bold"))
-        self.Multbutton.grid(row = 5, column = 3, sticky = N+W+E+S)
+        self.Multbutton.grid(row = 3, column = 3, sticky = N+W+E+S)
 
         # Division button
         self.Divbutton = Button(self, bg = "#A9A9A9", bd = 0, 
         text = "/",  padx = 39, pady = 25,
         command = lambda : self.buttonClick("/", "/"), font = ("Calibri", 20, "bold"))
-        self.Divbutton.grid(row = 6, column = 3, sticky = N+W+E+S)
+        self.Divbutton.grid(row = 2, column = 3, sticky = N+W+E+S)
 
         # Tan button
         self.Tanbutton = Button(self, bg = "#A9A9A9", bd = 0, 
@@ -137,7 +137,7 @@ class Application(Frame):
         self.Dotbutton = Button(self, bg = "#A9A9A9", bd = 0, 
         text = ".",  padx = 34, pady = 24,
         command = lambda : self.buttonClick(".", "."), font = ("Sans-serif", 15, "bold"))
-        self.Dotbutton.grid(row = 2, column = 3, sticky = N+W+E+S)
+        self.Dotbutton.grid(row = 6, column = 3, sticky = N+W+E+S)
 
         # OpenPar button
         self.OpenParbutton = Button(self, bg = "#A9A9A9", bd = 0, 
