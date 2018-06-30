@@ -18,9 +18,7 @@ def biseccao (x, it):
 
 	""" Algoritmo da bisseccao """
 	for i in range(0, it):
-		f1Value = fx(x[0])
-		f2Value = fx(m)
-		if f1Value!="?" and f2Value!="?" and fx(x[0])*fx(m)<0:
+		if fx(x[0])*fx(m)<0:
 			x[1]=m
 		else:
 			x[0]=m
@@ -33,25 +31,21 @@ def secante(x, f, it, eps, plotRange, funcaoMascara):
 	print("\n# Secante")
 
 	""" Area de plotagem """ 
-	plotLeft = x[0]-plotRange # Limite a esquerda leva em conta o valor de x0 obtido pelo metodo da biseccao - o plotRange
-	plotRight = x[1]+plotRange # Limite a direita leva em conta o valor de x1 obtido pelo metodo da biseccao + o plotRange
-	raiz = 0
+	""" Fiquei chutando uns valores ate dar certo, mas da pra usar o valor de plotRange passado na funcao"""
+	plotLeft = x[0]-(x[1]+((x[1]*x[0])/(x[1]+x[0]))) # Limite a esquerda da plotagem
+	plotRight = x[1] + ((x[1]*x[0])/(x[1]+x[0])) # Limite a direita da plotagem
+	raiz = "0"
 
 	try:
-		""" Plota funcao dada pelo usuario """
-		plotFuncaoPrincipal(x, funcaoMascara, plotLeft, plotRight)
-		
-		""" Calcula pelo metodo das secantes """
+		plotFuncaoPrincipal(x, funcaoMascara, plotLeft, plotRight) # Plota funcao principal
+
 		cont = 2 
-		while cont<it and abs(fx(len(x)-1))>eps and f[cont-1]!=f[cont-2]: # Enquanto nao ultrapassar o numero de iteracoes maximas
+		while cont<it and abs(f[cont-1]-f[cont-2])>eps and f[cont-1]!=f[cont-2]:
 			xValue = x[cont-1]-((f[cont-1]*(x[cont-1]-x[cont-2]))/(f[cont-1]-f[cont-2]))
 			x.append(xValue)
 			fValue = fx(xValue)
 			f.append(fValue)
 			cont+=1
-
-		if cont==it:
-			print("Nao foi possivel encontrar as raizes com {} iteracoes".format(it))
 
 	except ZeroDivisionError:
 		print("ERRO #01: Divisao por zero")
@@ -69,7 +63,7 @@ def secante(x, f, it, eps, plotRange, funcaoMascara):
 			plotSecante(i, x[i-1], x[i], f[i-1], f[i], plotLeft, plotRight)
 
 	if raiz!="?":
-		raiz = str(x[len(x)-1])
+		raiz = "{:.15f}".format(x[len(x)-1])
 
 	plt.title("{}, raiz = ".format(funcaoMascara) + raiz)
 
@@ -83,7 +77,7 @@ def plotFuncaoPrincipal(x, lblLegenda, plotLeft, plotRight):
 			xAxis.append(i)
 			yAxis.append(yValue)
 
-	plt.plot(xAxis, yAxis,"r", label=lblLegenda)
+	plt.plot(xAxis, yAxis,"r", linewidth=1.5 , label=lblLegenda)
 	plt.show()
 	
 
@@ -97,13 +91,14 @@ def plotSecante(i, x0, x1, f0, f1, plotLeft, plotRight):
 
 		xAxis = []
 		yAxis = []
-		for x in decimal_range(x0-x1/2, x1+x1/2, 0.01):
+		for x in decimal_range(plotLeft, plotRight, 0.01):
 			y = m*(x-x1)+f1
 			xAxis.append(x)
 			yAxis.append(y)
 		
 		lbl = "{} iteracao, x{} = {:.3f}".format(i,i,x1)
-		plt.plot(xAxis, yAxis, linewidth=0.8, label = lbl)
+		#plt.text(xAxis[len(xAxis)-1], yAxis[len(yAxis)-1], "i{}".format(i))
+		plt.plot(xAxis, yAxis, "--", linewidth=0.9, label = lbl)
 
 		xAxis = [x1, x1]
 		yAxis = [0, f1]
@@ -118,7 +113,7 @@ def plotSecante(i, x0, x1, f0, f1, plotLeft, plotRight):
 
 def fx(x):
 	try:
-		return eval(func)
+		return float(eval(func))
 
 	except ZeroDivisionError:
 		print("ERRO #04: Divisao por zero")
@@ -128,16 +123,17 @@ def fx(x):
 		print("ERRO #05: TypeError")
 	 
 def main():
+	
 	""" Entradas da interface para o usuario """
 	comeco = entradaA.get()
 	fim = entradaB.get()
 	precisao = entradaEpslon.get()
-	maxIteracoes = entradaMaxIt.get()
+	maxIt = entradaMaxIt.get()
 	entradas.destroy()
-	
+
 	""" Configuracoes para os calculos """
 	x=[float(comeco), float(fim)]
-	itSMax = maxIteracoes
+	itSMax = int(maxIt)
 	itB = 7
 	eps = float(precisao)
 	
@@ -154,12 +150,18 @@ def main():
 	plt.grid(True)
 	plt.title("{}, raiz = ?".format(funcaoMascara))
 
+	""" Pensando... """
+	print("Processando ...")
+	print(" -> Funcao: {}".format(funcaoMascara))
+	print(" -> Inicio do intervalo: {}".format(comeco))
+	print(" -> Fim do intervalo: {}".format(fim))
+	print(" -> Precisao: {}".format(precisao))
+	print(" -> Max. Iteracoes: {}".format(maxIt))
+
+
 
 	""" Verifica se existe uma raiz no intervalo fornecido """
 	if fx(x[0])*fx(x[1])<0:
-
-			""" Pensando... """
-			print("Processando funcao {} ...".format(funcaoMascara))
 
 			print(" ------------------------------------------ ")
 
@@ -181,33 +183,29 @@ def main():
 	else:
 			print("Existem mais de uma ou nenhuma raiz no intervalo dado")
 
-
-""" Config janela de dados """
 #janela de dados, repara que ela executa a main e depois
 #a mais para ela com o entradas.destroy()
 entradas = tk.Tk()
 
 entradas.title('Entradas')
 
-lblIntervaloA = tk.Label(entradas, text = "Inicio do intervalo")
-lblIntervaloA.grid(row = 0, column = 0)
+tk.Label(entradas, text = "Inicio do intervalo").grid(row = 0, column = 0)
 entradaA = tk.Entry(entradas)
 entradaA.grid(row = 1, column = 0)
 
-lblIntervaloB = tk.Label(entradas, text = "Fim do intervalo")
-lblIntervaloB.grid(row = 0, column = 1)
+tk.Label(entradas, text = "Fim do intervalo").grid(row = 0, column = 1)
 entradaB = tk.Entry(entradas)
 entradaB.grid(row = 1, column = 1)
 
-tk.Label(entradas, text = "\nConfiguracoes do Método da Secante:").grid(row=2, columnspan=2)
+tk.Label(entradas, text = "Inicio do intervalo").grid
 
-lblEpslon = tk.Label(entradas, text = "Precisao")
-lblEpslon.grid(row = 3, column = 0)
+tk.Label(entradas, text = "\nMetodo das Secantes").grid(row = 2, columnspan= 2)
+
+tk.Label(entradas, text = "Precisao").grid(row = 3, column = 0)
 entradaEpslon = tk.Entry(entradas)
 entradaEpslon.grid(row = 4, column = 0)
 
-lblMaxIt = tk.Label(entradas, text = "Max. de iteracoes")
-lblMaxIt.grid(row = 3, column = 1)
+tk.Label(entradas, text = "Maxixmo de\niteracoes").grid(row = 3, column = 1)
 entradaMaxIt = tk.Entry(entradas)
 entradaMaxIt.grid(row = 4, column = 1)
 
@@ -215,3 +213,6 @@ my_button0 = tk.Button(entradas, text = "Submit", command = main)
 my_button0.grid(row = 5, columnspan = 2)
 
 entradas.mainloop()
+
+#if __name__ == "__main__":
+#	main()
