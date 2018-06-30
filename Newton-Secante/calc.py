@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-import tkinter
+import tkinter as tk
 import math
 
 arquivo = open("input.txt", "r")
@@ -120,11 +120,21 @@ def fx(x):
 
 	except TypeError:
 		print("ERRO #05: TypeError")
-
-
+     
 def main():
     """ Configuracoes passadas pelo usuario """
-    x=[1, 4]
+
+    comeco = my_entry0.get()
+    fim = my_entry1.get()
+    
+    root.destroy()
+
+    x=[int(comeco), int(fim)]
+
+    #teste pra ver se pegou certo
+    #print(x)
+    #print(type(x[0]) is int)
+
     itSMax = 100
     itB = 7
     plotRange = 100
@@ -170,5 +180,22 @@ def main():
     else:
             print("Existem mais de uma ou nenhuma raiz no intervalo dado")
 
-if __name__ == "__main__":
-    main()
+#janela de dados, repara que ela executa a main e depois
+#a mais para ela com o root.destroy()
+root = tk.Tk()
+
+my_label = tk.Label(root, text = "Leitura Intervalo X0 e X1")
+my_label.grid(row = 0, columnspan = 2)
+my_entry0 = tk.Entry(root)
+my_entry0.grid(row = 1, column = 0)
+
+my_entry1 = tk.Entry(root)
+my_entry1.grid(row = 1, column = 1)
+
+my_button0 = tk.Button(root, text = "Submit", command = main)
+my_button0.grid(row = 2, columnspan = 2)
+
+root.mainloop()
+
+#if __name__ == "__main__":
+#    main()
