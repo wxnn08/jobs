@@ -32,8 +32,8 @@ def secante(x, f, it, eps, plotRange, funcaoMascara):
 
 	""" Area de plotagem """ 
 	""" Fiquei chutando uns valores ate dar certo, mas da pra usar o valor de plotRange passado na funcao"""
-	plotLeft = x[0]-(x[1]+((x[1]*x[0])/(x[1]+x[0]))) # Limite a esquerda da plotagem
-	plotRight = x[1] + ((x[1]*x[0])/(x[1]+x[0])) # Limite a direita da plotagem
+	plotLeft = x[0] - plotRange # Limite a esquerda da plotagem
+	plotRight = x[1] + plotRange # Limite a direita da plotagem
 	raiz = "0"
 
 	try:
@@ -57,7 +57,9 @@ def secante(x, f, it, eps, plotRange, funcaoMascara):
 	for i in range (1, len(f)):
 		if x[i]!=x[i-1]:
 			print("---- x[{}]: {}".format(i, x[i]))
+			
 	print("\n** Aperte qualquer tecla para realizar as iteracoes **")
+
 	for i in range (1, len(f)):
 		if x[i]!=x[i-1]:
 			plotSecante(i, x[i-1], x[i], f[i-1], f[i], plotLeft, plotRight)
@@ -129,6 +131,7 @@ def main():
 	fim = entradaB.get()
 	precisao = entradaEpslon.get()
 	maxIt = entradaMaxIt.get()
+	plotArea = entradaPlotArea.get()
 	entradas.destroy()
 
 	""" Configuracoes para os calculos """
@@ -136,13 +139,13 @@ def main():
 	itSMax = int(maxIt)
 	itB = 7
 	eps = float(precisao)
+	plotRange = int(plotArea)
 	
 	
 	""" Configuracoes da plotagem """
 	arquivo2 = open("title.txt", "r")
 	funcaoMascara = arquivo2.read()
 
-	plotRange = 100
 
 	plt.ion()
 	plt.ylabel("f(x)")
@@ -161,7 +164,8 @@ def main():
 
 
 	""" Verifica se existe uma raiz no intervalo fornecido """
-	if fx(x[0])*fx(x[1])<0:
+	try: 
+		if fx(x[0])*fx(x[1])<0:
 
 			print(" ------------------------------------------ ")
 
@@ -180,11 +184,17 @@ def main():
 			plt.ioff() # Desliga modo iterativo
 			plt.show() # Mostra o que foi plotado até agora, ou seja, tudo
 
-	else:
+		else:
 			print("Existem mais de uma ou nenhuma raiz no intervalo dado")
 
-#janela de dados, repara que ela executa a main e depois
-#a mais para ela com o entradas.destroy()
+	except TypeError:
+		print("ERRO #06: TypeError")
+
+	except ZeroDivisionError:
+		print("ERRO #07: ZeroDivisionError")
+
+# janela de dados, repara que ela executa a main e depois
+# a main para ela com o entradas.destroy()
 entradas = tk.Tk()
 
 entradas.title('Entradas')
@@ -209,10 +219,17 @@ tk.Label(entradas, text = "Maxixmo de\niteracoes").grid(row = 3, column = 1)
 entradaMaxIt = tk.Entry(entradas)
 entradaMaxIt.grid(row = 4, column = 1)
 
-my_button0 = tk.Button(entradas, text = "Submit", command = main)
-my_button0.grid(row = 5, columnspan = 2)
+#espaçamento
+tk.Label(entradas, text = "").grid(row = 5, column = 0)
+
+tk.Label(entradas, text = "Area de plotagem").grid(row = 6, column = 0)
+entradaPlotArea = tk.Entry(entradas)
+entradaPlotArea.grid(row = 6, column = 1)
+
+#espaçamento
+tk.Label(entradas, text = "").grid(row = 7, column = 0)
+
+my_button0 = tk.Button(entradas, text = "Enviar", command = main)
+my_button0.grid(row = 8, columnspan = 2)
 
 entradas.mainloop()
-
-#if __name__ == "__main__":
-#	main()

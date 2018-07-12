@@ -217,7 +217,9 @@ class Application(Frame):
 
 	def putX(self):
 		s = self.task
-		s = s[len(s)-1]
+		if len(s)>0: 
+			s = s[len(s)-1]
+
 		if s=='0' or s=='1'or s=='2' or s=='3' or s=='4' or s=='5' or s=='6' or s=='7' or s=='8' or s=='9' or s==')':
 			self.buttonClick("*x","x")
 
