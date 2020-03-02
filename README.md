@@ -1,1 +1,1 @@
-# Steve jobs
+# Secant method
